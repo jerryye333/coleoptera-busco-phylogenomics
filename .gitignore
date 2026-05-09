@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+.Rapp.history
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Local working files (never commit raw data / intermediate results)
+*.log
+*.tmp
+*.bak
+*.orig
+results/
+output/
+work/

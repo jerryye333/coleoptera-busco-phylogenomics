@@ -1,0 +1,126 @@
+# Coleoptera BUSCO phylogenomics pipeline — conda environments
+# ============================================================================
+# Several tools have incompatible Python pins (BESST, redundans, medaka), so
+# the pipeline uses multiple environments. Create them on demand:
+#
+#   conda env create -f environment.yml          # creates "busco_pipeline"
+#   # then create the auxiliary envs if you need those steps:
+#   conda env create -n redundans -f environment.yml --override-channels  \
+#         --file environment.yml -n redundans   # see redundans block below
+#
+# Or simply copy the relevant block into a separate YAML.
+# ============================================================================
+
+# ----- main environment: BUSCO + extraction + filtering + tree-building -----
+name: busco_pipeline
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Workflow
+  - parallel
+  - pigz
+  - csvtk
+  - dos2unix
+
+  # QC / trimming
+  - fastp=0.25.0
+  - bbmap=39.26
+  - fastqc
+  - multiqc
+  - seqkit=2.10.0
+  - filtlong=0.2.1
+  - porechop=0.2.4
+  - nanoplot
+  - nanocomp
+  - nanostat
+
+  # Assembly
+  - megahit=1.2.9
+  - hifiasm=0.25.0
+  - flye=2.9.6
+  - spades=4.2.0
+  - cd-hit=4.8.1
+  - minimap2
+  - samtools
+  - soapdenovo2-gapcloser
+  - abyss
+  - racon=1.5.1
+  - nextpolish=1.4.1
+
+  # BUSCO
+  - busco=6.0.0
+
+  # Alignment / trimming
+  - magus-msa
+  - trimal=1.5.0
+
+  # Tree inference / filtering
+  - iqtree=3.0.1
+  - phykit=2.0.2
+  - treeshrink=1.3.9
+  - newick_utils
+  - aster        # ASTRAL-IV
+  - gotree
+
+  # Python deps used by plotting + filter_by_coverage.py
+  - python=3.10
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - biopython
+
+  # R for ggtree + TreeDist plots
+  - r-base>=4.2
+  - r-ape
+  - r-ggplot2
+  - r-dplyr
+  - r-tidyverse
+  - r-stringr
+  - r-optparse
+  - bioconductor-ggtree
+  - bioconductor-ggtreeextra
+  - r-treedist
+  - r-ggrepel
+  - r-ggnewscale
+  - r-tidytree
+
+# ----- auxiliary environments (paste each into its own YAML if you need them) -----
+#
+# # redundans (Python 3.10 only)
+# name: redundans
+# channels: [bioconda, conda-forge]
+# dependencies:
+#   - python=3.10
+#   - redundans=2.0.1
+#   - parallel
+#
+# # BESST (legacy Python 2 + networkx 1.9)
+# name: besst
+# channels: [bioconda, conda-forge]
+# dependencies:
+#   - python=2.7
+#   - pysam=0.8.4
+#   - scipy=1.0.0
+#   - matplotlib
+#   - pip
+#   - pip:
+#     - "networkx==1.9"
+#
+# # Medaka (ONT polishing) — Python 3.10
+# name: medaka
+# channels: [bioconda, conda-forge]
+# dependencies:
+#   - python=3.10
+#   - medaka=2.0.1
+#
+# ----- non-conda dependencies (manual install) ------------------------------
+# - FASconCAT-G v1.06.1   https://github.com/PatrickKueck/FASconCAT-G
+# - ASTRAL v5.7.8 (jar)   https://github.com/smirarab/ASTRAL
+# - wASTRAL               https://github.com/chaoszhang/ASTER
+# - Phylogears            https://github.com/phylogears
+# - phylostuff (phylabel.R) https://github.com/yourforklab/phylostuff
+# - HiFiAdapterFilt       https://github.com/sheinasim/HiFiAdapterFilt
