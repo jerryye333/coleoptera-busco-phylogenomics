@@ -71,7 +71,7 @@ Not produced by code in this repository (manual / external):
 ## Data
 
 - **Raw reads & reference assemblies**: NCBI BioProject `PRJNA1462652`. Provenance summary in Suppl Table 2.
-- **Filtered alignments, gene trees, supermatrices, species trees, taxonomy CSV**: Zenodo `10.5281/zenodo.XXXXXX`.
+- **Filtered alignments, gene trees, supermatrices, species trees, taxonomy CSV**: Zenodo `doi.org/10.5281/zenodo.20111661`.
 
 The pipeline expects `${PROJECT_ROOT}/Coleoptera.csv` (master taxonomy) — provided in the Zenodo deposit.
 
